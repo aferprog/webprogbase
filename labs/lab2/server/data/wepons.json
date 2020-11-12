@@ -1,0 +1,37 @@
+{
+  "nextId": 8,
+  "items": [
+    {
+      "id": 1,
+      "name": "knifes",
+      "author": "Me",
+      "damage": 20,
+      "speed": 90,
+      "createdAt": "2020-10-11T11:54:40.608Z"
+    },
+    {
+      "id": 3,
+      "name": "Gun",
+      "author": "No name",
+      "damage": 121,
+      "speed": 85,
+      "createdAt": "2020-10-11T12:18:32.071Z"
+    },
+    {
+      "id": 4,
+      "name": "sword",
+      "author": "HEllBo7",
+      "damage": 130,
+      "speed": 50,
+      "createdAt": "2020-10-11T12:24:19.322Z"
+    },
+    {
+      "id": 6,
+      "name": "string",
+      "author": "string",
+      "damage": 1,
+      "speed": 1,
+      "createdAt": "2020-11-12T23:05:57.020Z"
+    }
+  ]
+}
