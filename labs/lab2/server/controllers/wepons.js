@@ -118,7 +118,7 @@ module.exports={
                 'speed': Number(speed),
                 'date': date
             };
-            res.set("Content-type", "application/json");
+            res.status(201).res.set("Content-type", "application/json");
             res.send(wepon);
         }
         else {
