@@ -1,8 +1,12 @@
-// const { json } = require('body-parser');
-// const { application } = require('express');
-// const { query } = require('express');
+const MediaRepository = require('../../repositories/mediaRepository');
+const media = new MediaRepository('./data/media');
 const WeponRepository = require('../../repositories/weponRepository');
 const weponStorage = new WeponRepository('./data/wepons.json');
+
+function countOfPages(items, per){
+    const k=items.length;
+    return Math.ceil(k/per);
+}
 
 function pagination(items, page=1, per_page=2){
     const start = (page-1)*per_page;
@@ -11,8 +15,9 @@ function pagination(items, page=1, per_page=2){
 
 module.exports={
      getWepons(req, res){
-        console.log(req.query);
-        const items = weponStorage.getWepons();
+        let search = req.query.name;
+        if (typeof search === 'undefined') search='';
+        const items = weponStorage.getWepons().filter(wepon => wepon['name'].indexOf(search)>=0);
         let page = req.query.page;
         let per = req.query.per_page;
         if (typeof page === 'undefined') page = 1, console.log("u1");
@@ -21,24 +26,30 @@ module.exports={
             else per=Number(per);
 
         if (isNaN(page) || isNaN(per) || page <=0 || per <=0){
-            res.status(400).send({});
+            res.status(400).render('wepons', {});
             return;
         }
+        let prev, next;
+        if (page==1)
+            prev = [];
+          else prev = [page-1];
 
+        if (page==countOfPages(items,per))
+            next = [];
+          else next = [page+1];
+        
         const resItems = pagination(items, page, per);
-        res.set("Content-type", "application/json");
-        res.send(resItems);
+        res.render('wepons', {resItems, search, count: countOfPages(items,per), prev, next, per});
     },
     getWeponById(req, res){
         const str_id = req.params.id;
         const id = Number(str_id);
         const wepon = weponStorage.getWeponById(id);
         if (wepon===null) {
-            res.status(404).send({});
+            res.status(404).render('wepon', {});
             return;
         }
-        res.set("Content-type", "application/json");
-        res.send(wepon);
+        res.render('wepon', wepon);
     },
     deleteWepon(req, res){
         const str_id = req.params.id;
@@ -48,8 +59,7 @@ module.exports={
             res.status(404).send({});
             return;
         }
-        res.set("Content-type", "application/json");
-        res.send(delItem);
+        res.redirect('/wepons');
     },
     updateWepon(req, res){
         // console.log(req.body);
@@ -100,7 +110,7 @@ module.exports={
         res.send(wepon_);
     },
     addWepon(req,res){
-        console.log(req.body);
+        console.log(req.body, req.file);
         const name = req.body.name;
         const author = req.body.author;
         const damage = req.body.damage;
@@ -109,17 +119,9 @@ module.exports={
         let id;
         if (name.length>0 && author.length>0 && 
             !isNaN(damage) && damage>=0 && !isNaN(speed) && speed>0){
-            id = weponStorage.addWepon(name, author, Number(damage), Number(speed), date);
-            let wepon= {
-                'id': id,
-                'name': name,
-                'author': author,
-                'damage': Number(damage), 
-                'speed': Number(speed),
-                'date': date
-            };
-            res.status(201).set("Content-type", "application/json");
-            res.send(wepon);
+            const url = '/media/' + media.getNextId()+'.jpeg';
+            id = weponStorage.addWepon(name, author, Number(damage), Number(speed), date, url);
+            res.redirect('/wepons/'+id);
         }
         else {
             res.set("Content-type", "application/json");

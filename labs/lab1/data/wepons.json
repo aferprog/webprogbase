@@ -1,5 +1,5 @@
 {
-  "nextId": 5,
+  "nextId": 6,
   "items": [
     {
       "id": 1,
@@ -24,6 +24,14 @@
       "damage": 130,
       "speed": 50,
       "createdAt": "2020-10-11T12:24:19.322Z"
+    },
+    {
+      "id": 5,
+      "name": "nema",
+      "author": "Un",
+      "damage": 12,
+      "speed": 41,
+      "createdAt": "2020-11-27T07:10:15.356Z"
     }
   ]
 }

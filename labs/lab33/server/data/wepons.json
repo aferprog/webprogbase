@@ -1,5 +1,5 @@
 {
-  "nextId": 10,
+  "nextId": 12,
   "items": [
     {
       "id": 1,
@@ -48,6 +48,22 @@
       "damage": 38,
       "speed": 40,
       "createdAt": "2020-12-07T10:46:51.263Z"
+    },
+    {
+      "id": 10,
+      "name": "glass",
+      "author": "No name",
+      "damage": 38,
+      "speed": 40,
+      "createdAt": "2020-12-10T21:24:09.628Z"
+    },
+    {
+      "id": 11,
+      "name": "glass",
+      "author": "No name",
+      "damage": 38,
+      "speed": 40,
+      "createdAt": "2020-12-10T21:24:37.813Z"
     }
   ]
 }
