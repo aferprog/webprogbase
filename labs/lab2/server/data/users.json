@@ -1,0 +1,23 @@
+{
+  "nextId": 3,
+  "items": [
+    {
+      "id": 1,
+      "login": "admin",
+      "fullname": "Admin Admin",
+      "role": 1,
+      "registeredAt":"2020-08-31T13:28:36.599Z",
+      "avaUrl":"some url adress",
+      "isEnabled": true
+    },
+    {
+      "id": 2,
+      "login": "testUser",
+      "fullname": "Test User",
+      "registeredAt":"2020-08-31T13:28:36.599Z",
+      "role": 0,
+      "avaUrl":"https://www.ava.jpeg",
+      "isEnabled": false
+    }
+  ]
+}

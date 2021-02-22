@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> header}}
+    <title>Document</title>
+</head>
+<body>
+    {{> head}}
+    <div class = 'global'>
+        {{> menu}}
+        <div class = 'info'>
+            <form action="/users/" method="GET">
+                <input type="text" name="name" placeholder='Часть имени' value='{{search}}'>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+            {{#resItems.length}}
+            {{#resItems}}
+            <a href='/users/{{id}}'>
+                <div class = 'infoItem'>
+                    <img src='{{avaUrl}}' alt='img{{id}}' class='ava' height = '100px'>
+                    <div class='descr'>{{fullname}}</div>
+                </div>
+            </a>
+            {{/resItems}}
+            {{/resItems.length}}
+
+            {{^resItems.length}}
+            <h1>No users</h1>            
+            {{/resItems.length}}
+
+            
+        </div>
+    </div>
+    {{> footer}}
+</body>
+</html>

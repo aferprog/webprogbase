@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> header}}
+    <title>Document</title>
+</head>
+<body>
+    {{> head}}
+    <div class = 'global'>
+        {{> menu}}
+        <div class = 'info'>
+            <form action="/wepons/" method="GET">
+                <input type="text" name="name" placeholder='Часть названия' value='{{search}}'>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+            {{#resItems.length}}
+            {{#resItems}}
+            <a href='/wepons/{{id}}'>
+                <div class = 'infoItem'>
+                    <img src='https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg' alt='img{{id}}' class='ava' height = '100px'>
+                    <div class='descr'>{{name}}</div>
+                </div>
+            </a>
+            {{/resItems}}
+            {{/resItems.length}}
+
+            {{^resItems.length}}
+            <h1>No wEpons</h1>            
+            {{/resItems.length}}
+            <div class='pages'>
+                {{#prev.length}}
+                <a href='/wepons?name={{search}}&page={{prev}}&per_page={{per}}'>
+                    <
+                </a>
+                {{/prev.length}}
+                {{^prev.length}}
+                    |
+                {{/prev.length}}
+
+                {{count}}
+
+                {{#next.length}}
+                <a href='/wepons?name={{search}}&page={{next}}&per_page={{per}}'>
+                    > 
+                </a>
+                {{/next.length}}
+                {{^next.length}}
+                    |
+                {{/next.length}}
+            </div>
+        </div>
+    </div>
+    {{> footer}}
+</body>
+</html>

@@ -1,0 +1,17 @@
+    <div class = 'menu'>
+        <a href = '/users'> 
+            <div class = 'menuItem'> 
+                Users
+            </div>
+        </a>
+        <a href = '/wepons'> 
+            <div class = 'menuItem'>
+                Wepons
+            </div>
+            </a>
+        <a href = '/'>
+            <div class = 'menuItem'>
+                About
+            </div>
+        </a>
+    </div>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> header}}
+    <title>Document</title>
+</head>
+<body>
+    {{> head}}
+    <div class = 'global'>
+        {{> menu}}
+        <div class = 'info'>
+            <div class = 'infoItem'>
+                <img src='{{avaUrl}}' alt='img{{id}}' class='ava' height = '100px'>
+                <div class='descr'>
+                    Полное имя: {{fullname}}; <br>
+                    Логин: {{login}}; <br>
+                    Дата регестрации: {{registeredAt}}; <br>
+                    Тут описание АДмина-Админа
+                </div>
+            </div>
+        </div>
+    </div>
+    {{> footer}}
+</body>
+</html>

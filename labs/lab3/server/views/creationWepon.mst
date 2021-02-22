@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> header}}
+    <title>Document</title>
+</head>
+<body>
+    {{> head}}
+    <div class = 'global'>
+        {{> menu}}
+        <div class = 'info'>
+            <div class = 'infoItem'>
+                <form action='/wepons' enctype="multipart/form-data" method='POST' >
+                    <pre>
+                        Название:
+                        <input type='text' name='name'>
+                        Имя автора:
+                        <input type='text' name='author'>
+                        Урон:
+                        <input type='number' name='damage'>
+                        Скорострельность:
+                        <input type='number' name='speed'>
+                        Иллюстрация:
+                        <input type='file' name='image' accept="image/*,image/jpeg">
+                        
+                        <input type='submit' value='Создать'>
+                    </pre>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{> footer}}
+</body>
+</html>

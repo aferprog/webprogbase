@@ -1,0 +1,113 @@
+{
+  "nextId": 17,
+  "items": [
+    {
+      "id": 1,
+      "name": "knifes",
+      "author": "Me",
+      "damage": 20,
+      "speed": 90,
+      "createdAt": "2020-10-11T11:54:40.608Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Gun",
+      "author": "No name",
+      "damage": 121,
+      "speed": 85,
+      "createdAt": "2020-10-11T12:18:32.071Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 4,
+      "name": "sword",
+      "author": "HEllBo7",
+      "damage": 130,
+      "speed": 50,
+      "createdAt": "2020-10-11T12:24:19.322Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 8,
+      "name": "glass",
+      "author": "No name",
+      "damage": 38,
+      "speed": 40,
+      "createdAt": "2020-12-07T10:44:20.323Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Stick",
+      "author": "Me",
+      "damage": 413,
+      "speed": 12,
+      "createdAt": "2020-12-09T15:06:14.561Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Cup",
+      "author": "Anonim",
+      "damage": 34,
+      "speed": 35,
+      "createdAt": "2020-12-09T15:08:55.908Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Котик-убийца",
+      "author": "нИкто",
+      "damage": 201,
+      "speed": 202,
+      "createdAt": "2020-12-09T17:24:16.392Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Котик-убийца",
+      "author": "нИкто",
+      "damage": 201,
+      "speed": 202,
+      "createdAt": "2020-12-09T17:26:25.525Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 13,
+      "name": "Удавка",
+      "author": "Киллер",
+      "damage": 50,
+      "speed": 200,
+      "createdAt": "2020-12-09T21:46:59.250Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 14,
+      "name": "user",
+      "author": "нИкто",
+      "damage": 413,
+      "speed": 12,
+      "createdAt": "2020-12-10T13:38:47.122Z",
+      "avatarUrl": "https://cs8.pikabu.ru/post_img/big/2016/12/28/1/1482881197192578721.jpg"
+    },
+    {
+      "id": 15,
+      "name": "user",
+      "author": "нИкто",
+      "damage": 413,
+      "speed": 12,
+      "createdAt": "2020-12-10T23:16:26.498Z",
+      "avatarUrl": "/media/2.jpeg"
+    },
+    {
+      "id": 16,
+      "name": "Final",
+      "author": "Некто",
+      "damage": 123,
+      "speed": 12,
+      "createdAt": "2020-12-10T23:22:33.625Z",
+      "avatarUrl": "/media/2.jpeg"
+    }
+  ]
+}
