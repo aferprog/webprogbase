@@ -1,25 +1,13 @@
 //const fs=require('fs');
 const Mongoose=require('mongoose');
-const config = require('./server/config').dev.db;
+const config = require('./config').dev.db;
 
 class MongoDB{
     constructor(model){
         this.model = model;
     }
     async connect(){
-        const conOptions = {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false
-        };
-        const url = `${config.key}://${config.host}:${config.port}/${config.name}`;
-        Mongoose.connect(url, conOptions)
-            .then(client=>{
-                console.log("Mongo database is connected");
-            })
-            .catch(err=>{
-                console.log("ERROR WITH Mongo");
-            });
+        
     }
     async close(){
         await this.client.disconnect()
@@ -28,7 +16,7 @@ class MongoDB{
     async getItems(options={}, pop=""){
         if (pop==="")
             return await this.model.find(options);
-        return await this.model.find(options).populate(pop);
+        return await this.model.find(options).populate("author").populate("ammo");
     }
     async delete(options){
         await this.model.findByIdAndDelete(options)

@@ -1,7 +1,7 @@
 // const { json } = require('body-parser');
 // const { application } = require('express');
 // const { query } = require('express');
-const WeponRepository = require('../../repositories/weponRepository');
+const WeponRepository = require('../repositories/weponRepository');
 const weponStorage = new WeponRepository();
 
 function pagination(items, page=1, per_page=2){
@@ -75,37 +75,24 @@ module.exports={
             });
     },
     addWepon(req,res){
-        // console.log(req.body);
-        // res.status(201).set("Content-type", "application/json");
-        // res.send({});
         const name = req.body.name;
         const author = req.body.author;
         const damage = req.body.damage;
         const speed = req.body.speed;
         const ammo = req.body.ammo;
-        //const date = new Date();
-        let id;
-        if (name.length>0 && author.length>0 && 
-            !isNaN(damage) && damage>=0 && !isNaN(speed) && speed>0){
-            let wepon= {
-                'name': name,
-                'author': author,
-                'damage': Number(damage), 
-                'speed': Number(speed),
-                'ammo': ammo,
-            };
-            wepon = weponStorage.addWepon(wepon);
-            wepon.then(wepon=>{
-                res.status(201).set("Content-type", "application/json");
-                res.send(wepon);
-            }).catch(err=>{
-                res.status(404).send({});
-            });;
-        }
-        else {
-            res.set("Content-type", "application/json");
-            res.status(400).send({});
-        }
-        
+        let wepon= {
+            'name': name,
+            'author': author,
+            'damage': Number(damage), 
+            'speed': Number(speed),
+            'ammo': ammo,
+        };
+        wepon = weponStorage.addWepon(wepon);
+        wepon.then(wepon=>{
+            res.status(201).set("Content-type", "application/json");
+            res.send(wepon);
+        }).catch(err=>{
+            res.status(400).send('Data is incorrect');
+        });
     }
 };

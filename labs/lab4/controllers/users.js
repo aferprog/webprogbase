@@ -1,6 +1,6 @@
 // const { json } = require('body-parser');
 // const { application } = require('express');
-const UserRepository = require('../../repositories/userRepository');
+const UserRepository = require('../repositories/userRepository');
 const userStorage = new UserRepository('./data/users.json');
 
 function pagination(items, page=1, per_page=2){

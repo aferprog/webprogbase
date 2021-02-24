@@ -1,4 +1,4 @@
-const AmmoRepo = require("../../repositories/ammoRepository");
+const AmmoRepo = require("../repositories/ammoRepository");
 const AmmoStorage = new AmmoRepo();
 function pagination(items, page=1, per_page=2){
     const start = (page-1)*per_page;

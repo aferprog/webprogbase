@@ -17,7 +17,7 @@ class UserRepository {
     }
  
     async getUserById(id) {
-        return this.storage.getItems({_id: id});
+        return this.storage.getItems({_id: id}).then(x => x[0]);
     }
 };
  

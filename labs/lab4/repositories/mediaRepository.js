@@ -1,4 +1,4 @@
-const config = require('../server/config').cloudinary;
+const config = require('../config').cloudinary;
 const cloudinary = require('cloudinary');
 const Model = require("../schemas/mediaSchema");
 const JsonStorage = require("../jsonStorage");

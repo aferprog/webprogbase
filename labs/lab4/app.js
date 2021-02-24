@@ -1,8 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const router = require("./routes/api");
-const config = require("./config").dev.app;
-//const Mongoose=require('mongoose');
+const configApp = require("./config").dev.app;
+const configDB = require("./config").dev.db;
+require('dotenv').config();
+const Mongoose=require('mongoose');
 
 const app = express();
 
@@ -19,8 +21,8 @@ app.use(bodyParser.json());
 app.use("/api/", router);
 
 app.use(function (err, req, res, next) {
-    console.error(err.stack)
-    res.status(500).send('Something broke!')
+    console.error(err.stack);
+    res.status(500).send('Incorrect JSON');
 });
  
 const expressSwaggerGenerator = require('express-swagger-generator');
@@ -33,14 +35,27 @@ const options = {
             title: 'LABA 4',
             version: '1.0.0',
         },
-        host: `localhost:${config.port}`,
+        host: `${configApp.host}`,
         produces: [ "application/json" ],
     },
     basedir: __dirname,
-    files: ['./routes/**/*.js', '../models/**/*.js'],
+    files: ['./routes/**/*.js', './models/**/*.js'],
 };
 expressSwagger(options);
 
-app.listen(config.port, ()=>{
+app.listen(configApp.port, ()=>{
     console.log("Server is listening");
+    const conOptions = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false
+    };
+    const url = `${configDB.key}://${configDB.host}:${configDB.port}/${configDB.name}`;
+    Mongoose.connect(url, conOptions)
+        .then(client=>{
+            console.log("Mongo database is connected");
+        })
+        .catch(err=>{
+            console.log("ERROR WITH Mongo");
+        });
 });

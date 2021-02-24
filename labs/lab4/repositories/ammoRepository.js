@@ -17,7 +17,7 @@ class AmmoRepository{
         return id.then(id => this.getAmmoById(id));
     }
     getAmmoById(id) {
-        return this.storage.getItems({_id: id});
+        return this.storage.getItems({_id: id}).then(x => x[0]);
     }
     updateAmmo(ammo) {
         const oldAmmo = this.storage.getItems({_id: ammo._id});

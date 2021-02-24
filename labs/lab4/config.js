@@ -2,7 +2,8 @@
 require('dotenv').config();
 const dev = {
  app: {
-   port: process.env.DEV_APP_PORT || 3000
+   host: process.env.DEV_APP_HOST,
+   port: process.env.PORT || process.env.DEV_APP_PORT
  },
  db: {
    key: process.env.DEV_DB_KEY || 'mongodb',
@@ -13,6 +14,7 @@ const dev = {
 };
 const test = {
  app: {
+   host: process.env.TEST_APP_HOST,
    port: process.env.TEST_APP_PORT || 3000
  },
  db: {

@@ -33,7 +33,7 @@ router.delete('/:id', ammoController.deleteAmmo);
  * @route post /api/ammo/
  * @group Ammo - ammo operations
  * @param {Ammo.model} ammo.body.required - future ammo
- * @returns {Wepon.model} 200 - new Ammo object
+ * @returns {Ammo.model} 200 - new Ammo object
  * @returns {Error} 400 - Bad request
  */
 router.post('/', ammoController.addAmmo);

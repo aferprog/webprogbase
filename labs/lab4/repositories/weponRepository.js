@@ -10,7 +10,7 @@ class UserRepository {
     }
  
     getWepons(pop=true) {
-        if (pop) pop="author";
+        if (pop) pop=["author", 'ammo'];
             else pop="";
         const wepons = this.storage.getItems({},pop);
         return wepons;
@@ -22,9 +22,9 @@ class UserRepository {
     }
  
     getWeponById(id, pop=true) {
-        if (pop) pop = "author";
+        if (pop) pop = ["author", 'ammo'];
             else pop = "";
-        return this.storage.getItems({_id: id}, pop);
+        return this.storage.getItems({_id: id}, pop).then(x => x[0]);
     }
     updateWepon(wepon) {
         const oldWepon = this.storage.getItems({_id: wepon._id});

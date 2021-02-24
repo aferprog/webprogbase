@@ -1,4 +1,4 @@
-const MediaRepository = require('../../repositories/mediaRepository');
+const MediaRepository = require('../repositories/mediaRepository');
 const mediaRepository = new MediaRepository();
 
 
@@ -7,9 +7,10 @@ module.exports = {
         const id = req.params.id;
         const mediaProm = mediaRepository.getMediaById(id);
         mediaProm.then(media=>{
-                res.set("Content-type", "application/json");
-                res.send(media);
+                //  res.set("Content-type", "application/json");
+                res.send(`<img src="${media[0].url}" />`);
         }).catch(err=>{
+
             res.status(404).send({});
         });
     },
@@ -20,6 +21,7 @@ module.exports = {
         mimetype.lastIndexOf('/');
         const ans = mediaRepository.uploadRaw(req.files.image.data, type);
         ans.then(ans =>{
+            console.log(ans);
             res.send(ans);
         })
             .catch(err=>{
