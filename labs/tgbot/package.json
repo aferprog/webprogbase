@@ -1,0 +1,14 @@
+{
+  "name": "rpcclient",
+  "version": "1.0.0",
+  "description": "for lab5",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "author": "ya",
+  "license": "ISC",
+  "dependencies": {
+    "jayson": "^3.4.4"
+  }
+}
