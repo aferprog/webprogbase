@@ -94,42 +94,6 @@ class ChatController{
             message: sms
         }
     }
-    /*postMessage(user, text){
-        const x = this.findRoomByUser(user);
-        if (x<0) throw new Error("Not in chat");
-        const room = this.rooms[x];
-        const sms = new ChatMessage(user, text);
-        room.messages.push(sms);
-        return {
-            members: room.members,
-            message: sms
-        }
-    }
-    findRoomByUser(user){
-        const x = this.rooms.findIndex((room)=>{
-            const members = room.members;
-            if (members.indexOf(user)>=0) return true;
-                else return false;
-        });
-        return x;
-    }
-    findRoomByName(name){
-        const x = this.rooms.findIndex((item) => {
-            return item.chatroom.name===name;
-        });
-        return x;
-    }
-    getRoomById(id){
-        const x = this.rooms.findIndex((item) => {
-            return item.id===id;
-        });
-        return this.rooms[x].chatroom.name;
-    }
-    lastMessages(room){
-        const x = this.findRoomByName(room);
-        if (x===-1) throw new Error("No such room");
-        return this.rooms[x].messages.slice(-10);
-    }*/
     getRoomById(id){
         const x = this.rooms.findIndex((item) => {
             return item.id===id;

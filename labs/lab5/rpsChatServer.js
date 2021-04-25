@@ -45,6 +45,11 @@ module.exports = {
             const token = jwt.sign(user.login, jwtSecret);
             const appmsg = new AppMessage(token, MessageTypes.SERVER_TOKEN, token);
             callback(null, appmsg);
+            if (content.room){
+                let _user = accountsController.getUser({login: user.login});
+                const appmsg = new AppMessage(token, MessageTypes.SERVER_CURRENT_ROOM_CHANGED, content.room);
+                _user.rpcConnection.push(appmsg);
+            }
         }
 
     },

@@ -1,7 +1,7 @@
 const { Console } = require('console');
 const jayson = require('jayson/promise');
-const port = 9090
-const client = jayson.client.http('http://127.0.0.1:'+port);
+const port = 3000
+const client = jayson.client.http('http://127.0.0.1:'+port+'/rpc');
 
 const readline = require('readline');
 const rl = readline.createInterface({

@@ -13,7 +13,6 @@ class AppMessage {
 class BotChat{
     constructor(bot){
         this.bot = bot;
-        // const 
         accountsController.telegramSend = async function(connection, msg){
             const roomList = function (rooms){
                 if (rooms.length===0) return "No rooms";
@@ -120,7 +119,8 @@ class BotChat{
                 }
             }
         } catch (err){
-            this.bot.sendMessage(msg.chat.id, `<b>-- ${err.message} --</b>`, { parse_mode: "HTML" } );
+            console.log(err.message);
+            this.bot.sendMessage(msg.chat.id, `<b>-- Denied --</b>`, { parse_mode: "HTML" } );
         }
         
     }
@@ -139,7 +139,7 @@ class BotChat{
                 console.log(`|| User's telegram isn't registred`);
             }
         } catch (err){
-            this.bot.sendMessage(msg.chat.id, `<b>-- ${err.message} --</b>`, { parse_mode: "HTML" } );
+            this.bot.sendMessage(msg.chat.id, `<b>-- Now it is impossible --</b>`, { parse_mode: "HTML" } );
         }
     }
     createRoom(msg, math){
@@ -164,7 +164,7 @@ class BotChat{
             appmsg = new AppMessage(null, MessageTypes.SERVER_CURRENT_ROOM_CHANGED, room.chatroom);
             accountsController.notify(appmsg, user);
         } catch (err){
-            this.bot.sendMessage(msg.chat.id, `<b>-- ${err.message} --</b>`, { parse_mode: "HTML" } );
+            this.bot.sendMessage(msg.chat.id, `<b>-- You are already in room or such room doesn't exist --</b>`, { parse_mode: "HTML" } );
         }
     }
     leaveRoom(msg){
@@ -177,7 +177,7 @@ class BotChat{
             appmsg = new AppMessage(null, MessageTypes.SERVER_MEMBER_LEFT, user);
             accountsController.notifyMany(appmsg, room.members);
         } catch (err){
-            this.bot.sendMessage(msg.chat.id, `<b>-- ${err.message} --</b>`, { parse_mode: "HTML" } );
+            this.bot.sendMessage(msg.chat.id, `<b>-- You are already not in room --</b>`, { parse_mode: "HTML" } );
         }
     }
     renameRoom(msg, match){
@@ -192,7 +192,7 @@ class BotChat{
             const appmsg = new AppMessage(null, MessageTypes.SERVER_ROOM_RENAMED, content);
             accountsController.notifyMany(appmsg);
         } catch (err){
-            this.bot.sendMessage(msg.chat.id, `<b>-- ${err.message} --</b>`, { parse_mode: "HTML" } );
+            this.bot.sendMessage(msg.chat.id, `<b>-- Error. Maybe such room already exists --</b>`, { parse_mode: "HTML" } );
         }
     }
     removeRoom(msg, match){
@@ -206,7 +206,7 @@ class BotChat{
             appmsg = new AppMessage(null, MessageTypes.SERVER_CURRENT_ROOM_CHANGED, null);
             accountsController.notifyMany(appmsg, room.members);
         } catch (err){
-            this.bot.sendMessage(msg.chat.id, `<b>-- ${err.message} --</b>`, { parse_mode: "HTML" } );
+            this.bot.sendMessage(msg.chat.id, `<b>-- Denied --</b>`, { parse_mode: "HTML" } );
         }
     }
     async getMembers(msg, match){
@@ -224,7 +224,7 @@ class BotChat{
                 console.log(`|| User's telegram isn't registred`);
             }
         } catch (err){
-            this.bot.sendMessage(msg.chat.id, `<b>-- ${err.message} --</b>`, { parse_mode: "HTML" } );
+            this.bot.sendMessage(msg.chat.id, `<b>-- Denied --</b>`, { parse_mode: "HTML" } );
         }
     }
     getMessages(msg){
@@ -236,7 +236,7 @@ class BotChat{
             if (!room) throw new Error("You are not in this room.");
             this.bot.sendMessage(msg.chat.id, this.messagesList(room.messages), { parse_mode: "HTML" } );
         } catch (err){
-            this.bot.sendMessage(msg.chat.id, `<b>-- ${err.message} --</b>`, { parse_mode: "HTML" } );
+            this.bot.sendMessage(msg.chat.id, `<b>-- Denied --</b>`, { parse_mode: "HTML" } );
         }
     }
     postMessage(msg, match){
@@ -251,7 +251,7 @@ class BotChat{
                 const appmsg = new AppMessage(null, MessageTypes.SERVER_MESSAGE_POSTED, whatAndTo.message);
                 accountsController.notifyMany(appmsg, whatAndTo.members);
             } catch (err){
-                this.bot.sendMessage(msg.chat.id, `<b>-- ${err.message} --</b>`, { parse_mode: "HTML" } );
+                this.bot.sendMessage(msg.chat.id, `<b>-- Denied --</b>`, { parse_mode: "HTML" } );
             }
         }
     }

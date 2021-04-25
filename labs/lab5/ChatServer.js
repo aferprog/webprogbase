@@ -155,8 +155,6 @@ class ChatServer{
         }
         catch(err){
             console.log(err.message);
-            const appmsg = new AppMessage(null, "error", err.message);
-            this.sendMessage(connection, appmsg);
         }
     }
     onClose(connection){
