@@ -1,17 +1,12 @@
-//const fs=require('fs');
-const Mongoose=require('mongoose');
-const config = require('./config').dev.db;
-
 class MongoDB{
     constructor(model){
         this.model = model;
     }
     async connect(){
-        
     }
     async close(){
         await this.client.disconnect()
-            .catch(err=>{});;
+            .catch(err=>{});
     }
     async getItems(options={}, pop=""){
         if (pop==="")

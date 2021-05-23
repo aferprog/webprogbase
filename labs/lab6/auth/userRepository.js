@@ -1,7 +1,5 @@
-//const User = require('../models/user');
-const JsonStorage = require('../jsonStorage');
-const Model = require('../schemas/userSchema');
-//const Mongoose = require('mongoose');
+const JsonStorage = require('./jsonStorage');
+const Model = require('./userSchema');
  
 class UserRepository {
  
@@ -11,13 +9,18 @@ class UserRepository {
         this.storage.connect();
     }
 
-    async getUsers() {
-        const users = this.storage.getItems();
+    async getUsers(ops={}) {
+        const users = this.storage.getItems(ops);
         return users;
     }
  
     async getUserById(id) {
         return this.storage.getItems({_id: id}).then(x => x[0]);
+    }
+
+    async addUser(user){
+        const id = this.storage.insert(user);
+        return id.then(id => this.getUserById(id));
     }
 };
  

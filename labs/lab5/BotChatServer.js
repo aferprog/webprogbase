@@ -98,7 +98,7 @@ class BotChat{
         try{
             console.log("TG login");
             const chatId = msg.chat.id;
-            this.bot.sendMessage(chatId, match[1]);
+            // this.bot.sendMessage(chatId, match[1]);
             const user = {
                 login: match[1],
                 telegramLogin: msg.from.first_name,

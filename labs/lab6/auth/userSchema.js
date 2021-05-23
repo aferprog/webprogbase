@@ -9,6 +9,13 @@ let userSchema = new Mongoose.Schema({
         maxlength: 50,
         unique: true
     },
+    password: {
+        type: String,
+        required: true,
+        minlength: 3,
+        maxlength: 50,
+        unique: false
+    },
     fullname: {
         type: String,
         required: true,
@@ -16,22 +23,9 @@ let userSchema = new Mongoose.Schema({
         maxlength: 50,
         unique: false
     },
-    role: {
-        type: Number,
-        min: 0,
-        max: 1,
-        default: 0
-    },
     registeredAt: {
         type: Date,
         default: Date.now()
-    },
-    avaUrl: {
-        type: String,
-    },
-    isEnabled: {
-        type: Boolean,
-        default: true
     }
 }, {collection: 'users'});
 

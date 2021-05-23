@@ -80,6 +80,7 @@ module.exports = {
         console.log("rpc-join-room");
         try{
             const user = jwt.verify(msg.token, jwtSecret);
+            console.log();
             const room = accountsController.joinRoom(user, msg.payload);
             if (!room){
                 console.log("No such room");

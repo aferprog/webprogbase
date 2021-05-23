@@ -12,7 +12,6 @@ let weaponSchema = new Mongoose.Schema({
     },
     author: {
         type: Mongoose.Schema.ObjectId,
-        ref: "users",
         required: true,
         unique: false
     },
@@ -27,12 +26,6 @@ let weaponSchema = new Mongoose.Schema({
         min: 0,
         max: 999999,
         required: true,
-    },
-    ammo: {
-        type: Mongoose.Schema.ObjectId,
-        ref: "ammo",
-        required: false,
-        unique: false
     },
     CreatedAt: {
         type: Date,

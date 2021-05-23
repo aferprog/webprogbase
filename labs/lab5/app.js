@@ -35,7 +35,7 @@ const rpsFunctions = require('./rpsChatServer');
 // create a server
 const rpcServer = jayson.server(rpsFunctions);
  
-rpcServer.http('/rpc').listen(port);
+rpcServer.http().listen(port);
 
 
 
