@@ -163,6 +163,7 @@ module.exports = {
         }
         const user = unpackToken(token);
         const fullUser = await getUser(user.login);
+        console.log(fullUser);
         const page = parseInt(req.query.page);
         const amount = parseInt(req.query.size);
         const offset = (page - 1) * amount;

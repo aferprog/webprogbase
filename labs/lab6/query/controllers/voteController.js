@@ -10,10 +10,11 @@ const connectOptions = {
     useUnifiedTopology: true,
 };
 const dbUrl = config.url;
-const model = mongoose.model("Vote", Vote);
+const model = mongoose.model("votes", Vote);
 
 async function addVote(vote)
 {
+    
     return mongoose.connect(dbUrl, connectOptions).then(() => model.insertMany(new model(vote))).catch((error) => { res.status(500); return; });
 }
 
