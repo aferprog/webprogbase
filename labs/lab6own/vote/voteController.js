@@ -1,6 +1,6 @@
-// const { json } = require('body-parser');
-// const { application } = require('express');
-// const { query } = require('express');
+// const { json } = req.bodyuire('body-parser');
+// const { application } = req.bodyuire('express');
+// const { query } = req.bodyuire('express');
 const VoteRepository = require('./voteRepository');
 const voteStorage = new VoteRepository();
 const amqp = require('amqplib');
@@ -8,29 +8,29 @@ const jwt = require('jsonwebtoken');
 const jwtSekret = "sekret";
 
 module.exports={
-    unvote(msg, callback){
+    unvote(req, res){
         let vote1;
         let user;
         try{
-            user = jwt.verify(msg.token, jwtSekret);
+            user = jwt.verify(req.body.token, jwtSekret);
         }catch(err){
             console.log(err);
-            callback(err);
+            res.send(null);
             return;
         }
-        const weapon = msg.weapon;
+        const weapon = req.body.weapon;
         voteStorage.status(user, weapon)
             .then(status=>{
                 if (status===true) return voteStorage.deleteVote(user._id, weapon);
-                    else return {};
+                    else return null;
             })
             .then(delItem=>{
-                callback(null, delItem);
+                res.send(delItem);
                 vote1 = delItem;
                 return amqp.connect('amqp://localhost');
             }).catch(err=>{
                 console.log(err);
-                callback(err);
+                res.send(null);
             })
             .then(connection=>{
                 return connection.createChannel();
@@ -41,29 +41,29 @@ module.exports={
             })
             .catch(err => console.log(`amqp`, err));
     },
-    vote(msg, callback){
+    vote(req, res){
         let vote1;
         let user;
         try{
-            user = jwt.verify(msg.token, jwtSekret);
+            user = jwt.verify(req.body.token, jwtSekret);
         }catch(err){
             console.log(err);
-            callback(err);
+            res.send(null);
             return;
         }
-        const weapon = msg.weapon;
+        const weapon = req.body.weapon;
         voteStorage.status(user, weapon)
             .then(status=>{
                 if (status===false) return voteStorage.addVote(user._id, weapon);
-                    else return {};
+                    else return null;
             })
             .then(vote=>{
-                callback(null, vote);
+                res.send(vote);
                 vote1 = vote;
                 return amqp.connect('amqp://localhost');
             }).catch(err=>{
                 console.log(err);
-                callback(err);
+                res.send(null);
             })
             .then(connection=>{
                 return connection.createChannel();
@@ -72,6 +72,9 @@ module.exports={
                 channel.assertQueue(queue);
                 channel.sendToQueue(queue, JSON.stringify({'type': '+', 'vote': vote1}));
             })
-            .catch(err => console.log(`amqp`, err));
+            .catch(err => {
+                console.log(`amqp`, err);
+                res.send(null);
+            });
     }
 };

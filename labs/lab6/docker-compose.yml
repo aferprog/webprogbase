@@ -1,0 +1,65 @@
+version: "2.2"
+services: 
+    rabbit:
+        image: rabbitmq
+        restart: always
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+
+    auth:
+        build: auth/.
+        ports:
+            - "3001:3001"
+        environment: 
+            port: "3001"
+            rabbitmq: "amqp://rabbit:5672"
+            mongo_url: "mongodb+srv://root:root@cluster0.omhx8.mongodb.net/auth?retryWrites=true&w=majority"
+            jwtSecret: "sekret"
+        restart: always
+
+    weapons:
+        build: weapons/.
+        ports:
+            - "3002:3002"
+        environment: 
+            port: "3002"
+            rabbitmq: "amqp://rabbit:5672"
+            mongo_url: "mongodb+srv://root:root@cluster0.omhx8.mongodb.net/weapons?retryWrites=true&w=majority"
+            jwtSecret: "sekret"
+        restart: always
+    
+    votes:
+        build: votes/.
+        ports:
+            - "3003:3003"
+        environment: 
+            port: "3003"
+            rabbitmq: "amqp://rabbit:5672"
+            mongo_url: "mongodb+srv://root:root@cluster0.omhx8.mongodb.net/votes?retryWrites=true&w=majority"
+            jwtSecret: "sekret"
+        restart: always
+
+    query:
+        build: query/.
+        ports:
+            - "3004:3004"
+        environment: 
+            port: "3004"
+            rabbitmq: "amqp://rabbit:5672"
+            mongo_url: "mongodb+srv://root:root@cluster0.omhx8.mongodb.net/query?retryWrites=true&w=majority"
+            jwtSecret: "sekret"
+        restart: always
+
+    gateway: 
+        build: gateway/.
+        ports:
+            - "3000:3000"
+        environment: 
+            port: "3000"
+            auth_url: "http://auth:3001"
+            weapons_url: "http://weapons:3002"
+            votes_url: "http://votes:3003"
+            query_url: "http://query:3004"
+            jwtSecret: "sekret"
+        restart: always

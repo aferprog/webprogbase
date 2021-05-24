@@ -20,100 +20,99 @@ function check(id, token){
 }
 
 module.exports={
-    getWeapons(msg, callback){
+    getWeapons(req, res){
         const items = weponStorage.getWepons();
-        let page = msg.page;
-        let per = msg.per_page;
+        let page = req.query.page;
+        let per = req.query.per_page;
         items.then(items =>{
             const resItems = pagination(items, page, per);
-            callback(null, resItems);
+            res.send(resItems);
         }).catch(err=>{
             console.log(err);
-            callback(err);
+            res.send(400);
         });
     },
-    getWeaponById(msg, callback){
-        const id = msg.id;
+    getWeaponById(req, res){
+        const id = req.query.id;
         const wepon = weponStorage.getWeponById(id);
         if (wepon===null) {
-            callback(404);
+            res.send(404);
             return;
         }
         wepon.then(wepon=>{
-            callback(null, wepon);
+            res.send(wepon);
         }).catch(err=>{
             console.log(err);
-            callback(err);
+            res.send(404);
         });
     },
-    async deleteWeapon(msg, callback){
-        const id = msg._id;
+    async deleteWeapon(req, res){
+        const id = req.body._id;
         try{
-            const f = await check(id, msg.token);
-            if (!f) callback("no rule");
+            const f = await check(id, req.body.token);
+            if (!f) res.send("no rule");
         }
         catch(err){
             console.log(err);
-            callback("deny")
+            res.send("deny")
         }
         const delItem = weponStorage.deleteWepon(id);
         delItem.then(delItem=>{
             console.log(delItem);
-            callback(null, JSON.stringify(delItem));
+            res.send(null, JSON.stringify(delItem));
         }).catch(err=>{
             console.log(err);
-            callback(err);
+            res.send(err);
         });
     },
-    async updateWeapon(msg, callback){
+    async updateWeapon(req, res){
         let user;
         try{
-            user = jwt.verify(msg.token, jwtSekret);
-            const f = await check(msg._id, msg.token);
+            user = jwt.verify(req.body.token, jwtSekret);
+            const f = await check(req.body._id, req.body.token);
             console.log(f);
             if (!f) {
-                callback("no rule");
+                res.send("no rule");
                 return;
             }
             
         }
         catch(err){
             console.log(err);
-            callback("deny");
+            res.send("deny");
             return;
         }
 
         let wepon = {
-            _id: msg._id,
+            _id: req.body._id,
         };
-        if (msg.name) wepon.name = msg.name;
-        if (msg.damage) wepon.damage = msg.damage;
-        if (msg.speed) wepon.speed = msg.speed;
+        if (req.body.name) wepon.name = req.body.name;
+        if (req.body.damage) wepon.damage = req.body.damage;
+        if (req.body.speed) wepon.speed = req.body.speed;
 
         const old = weponStorage.updateWepon(wepon);
         old.then(oldWep => {
             console.log(oldWep);
-            console.log("CHECK");
-            callback(null, JSON.stringify(oldWep));
+            res.send(null, JSON.stringify(oldWep));
         })
         .catch(err=>{
             console.log(err);
-            callback(err);
+            res.send(err);
         });
     },
-    addWeapon(msg, callback){
+    addWeapon(req, res){
         let user;
         try{
-            user = jwt.verify(msg.token, jwtSekret);
+            user = jwt.verify(req.body.token, jwtSekret);
         } catch(err) {
             console.log(err);
-            callback(err);
+            res.send(err);
             return;
         }
-        const name = msg.name;
-        const author = user._id;
-        const damage = msg.damage;
-        const speed = msg.speed;
+        const name = req.body.name;
+        const author = user.body._id;
+        const damage = req.body.damage;
+        const speed = req.body.speed;
         let wepon= {
             'name': name,
             'author': author,
@@ -123,10 +122,10 @@ module.exports={
         console.log(wepon);
         wepon = weponStorage.addWepon(wepon);
         wepon.then(wepon=>{
-            callback(null, wepon);
+            res.send(wepon);
         }).catch(err=>{
             console.log(err);
-            callback(err);
+            res.send(err);
         });
     }
 };

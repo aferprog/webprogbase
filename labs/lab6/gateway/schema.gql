@@ -1,19 +1,67 @@
+
 type User{
-    id: ID!
-    name: String!
-    bio: String!
-    projects: [Project!]!
+    _id: ID!
+    login: String!
+    password: String
+    registeredAt: String!
 }
 
-type Project{
-    name: String!
-    owner: User!
-    contributors: [User!]! 
-    contributor(name: String!): User
+type Token{
+    token: String!
+    login: String!
 }
 
-type Query{
-    hello: String
-    projects: [Project!]!
-    project(name: String!): Project
+type Weapon{
+    _id: ID!
+    name: String!
+    speed: Int!
+    damage: Int!
+    author: String!
+}
+
+type Vote{
+    _id: ID!
+    time: String!
+    user: String!
+    weapon_id: String!
+}
+
+type VoteUser {
+    user_id: String!
+    login: String!
+}
+
+type QueryVote{
+    time: String!
+    user: VoteUser!
+}
+
+type QueryResult{
+   weapon_id: String!
+   name: String!
+   votes: [QueryVote] 
+}
+
+type Query {
+    usernameExists(login: String!): Boolean!
+    users: [User!]
+    usersById(userId: String!): User!
+    me: User
+    getWeaponById(weaponId: String!): Weapon
+    getWeapons(page: Int! , size: Int!): [Weapon!]
+    getWeaponsVotes(page: Int! , size: Int!): [QueryResult!]
+    getWeaponsByIdVotes(weaponId: String!): QueryResult!
+    getUserByIdVotes(userId: String! , page: Int! , size: Int!): [QueryResult!]
+    getMeVotes(page: Int! , size: Int!): [QueryResult!]
+
+}
+
+type Mutation {
+    register(login: String! , password: String!): User
+    login(login: String! , password: String!): Token
+    addWeapon(name: String! , speed: Int! , damage: Int): Weapon
+    updateWeapon(_id: String! , name: String! , speed: Int! , damage: Int!): Weapon
+    deleteWeapon(_id: String!): Weapon
+    vote(weapon_id: String!): Vote
+    unvote(weapon_id: String!): Vote
 }

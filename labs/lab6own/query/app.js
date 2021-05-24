@@ -1,7 +1,7 @@
 // require('dotenv').config();
 const Mongoose = require('mongoose');
 const jayson = require('jayson/promise');
-const rpsFunctions = require('./voteController');
+const rpsFunctions = require('./controllers/weapons');
 // create a server
 const rpcServer = jayson.server(rpsFunctions);
 
@@ -10,12 +10,12 @@ const conOptions = {
     useUnifiedTopology: true,
     useFindAndModify: false
 };
-const url = `mongodb+srv://root:root@cluster0.omhx8.mongodb.net/votes?retryWrites=true&w=majority`;
+const url = `${configDB.key}://${configDB.host}:${configDB.port}/${configDB.name}`;
 Mongoose.connect(url, conOptions)
     .then(client=>{
-        rpcServer.http().listen(3000);
-        console.log("`VOTE`: Server is ready.");
+        rpcServer.http().listen(port);
+        console.log("`QUERY`: Server is ready.");
     })
     .catch(err=>{
-        console.log("`VOTE`: ERROR WITH Mongo");
+        console.log("`QUERY`: ERROR WITH Mongo");
     });

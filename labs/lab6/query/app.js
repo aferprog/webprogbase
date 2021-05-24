@@ -1,21 +1,63 @@
-// require('dotenv').config();
-const Mongoose = require('mongoose');
-const jayson = require('jayson/promise');
-const rpsFunctions = require('./controllers/weapons');
-// create a server
-const rpcServer = jayson.server(rpsFunctions);
+const express = require('express');
+const app = express();
+const apiRouter = require('./routes/apiRouter');
+const path = require('path');
+const amqp = require('amqplib');
+const config = require('./config');
+const { connection } = require('mongoose');
+const port = require('./config').port;
+const authController = require('./controllers/authController');
+const weaponController = require('./controllers/weaponController');
+const voteController = require('./controllers/voteController');
 
-const conOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-};
-const url = `${configDB.key}://${configDB.host}:${configDB.port}/${configDB.name}`;
-Mongoose.connect(url, conOptions)
-    .then(client=>{
-        rpcServer.http().listen(port);
-        console.log("`QUERY`: Server is ready.");
+amqp.connect(config.rabbitmq)
+    .then(connection => {
+        return connection.createChannel();
     })
-    .catch(err=>{
-        console.log("`QUERY`: ERROR WITH Mongo");
-    });
+    .then(channel => {
+        const queue = 'auth';
+        channel.assertQueue(queue);
+        channel.consume(queue, async msg => {
+            const message = JSON.parse(msg.content, toString());
+            await authController.authCRUD(message);
+            channel.ack(msg);
+        })
+    }).catch(err => console.log('amqp', err));
+
+amqp.connect(config.rabbitmq)
+    .then(connection => {
+        return connection.createChannel();
+    })
+    .then(channel => {
+        const queue = 'weapons';
+        channel.assertQueue(queue);
+        channel.consume(queue, async msg => {
+            const message = JSON.parse(msg.content, toString());
+            await weaponController.weaponCRUD(message);
+            channel.ack(msg);
+        })
+    }).catch(err => console.log('amqp', err));
+
+amqp.connect(config.rabbitmq)
+    .then(connection => {
+        return connection.createChannel();
+    })
+    .then(channel => {
+        const queue = 'votes';
+        channel.assertQueue(queue);
+        channel.consume(queue, async msg => {
+            const message = JSON.parse(msg.content, toString());
+            console.log(message);
+            await voteController.voteCRUD(message);
+            channel.ack(msg);
+        })
+    }).catch(err => console.log('amqp', err));
+
+app.use('', apiRouter);
+
+app.listen(port, err => {
+    if (err) {
+        return console.log("ERROR", err);
+    }
+    console.log('listening on port ' + port);
+});

@@ -10,8 +10,8 @@ function pagination(items, page=1, per_page=2){
 }
 
 module.exports={
-    'login': (msg, callback) => {
-        const PromUser = userStorage.getUsers({login: msg.login, password: msg.password});
+    'login': (req, callback) => {
+        const PromUser = userStorage.getUsers({login: req.body.login, password: req.body.password});
         PromUser
             .then(users=>{
                 console.log(users);
@@ -27,9 +27,9 @@ module.exports={
                 callback(err);
             });
     },
-    'getUsers': (msg, callback) => {
-        let page = msg.page;
-        let per = msg.per_page;
+    'getUsers': (req, callback) => {
+        let page = req.body.page;
+        let per = req.body.per_page;
         const itemsProm = userStorage.getUsers();
         itemsProm
             .then(items => {
@@ -40,18 +40,18 @@ module.exports={
                 callback(err);
             });
     },
-    'getUserById': (msg, callback) => {
+    'getUserById': (req, callback) => {
         let id;
-        if (msg.token) {
+        if (req.body.token) {
             try{
-                const user = jwt.verify(msg.token, jwtSekret);
+                const user = jwt.verify(req.body.token, jwtSekret);
                 id = user._id;
             } catch(err){
                 console.log(err);
                 callback(err);
                 return;
             }
-        } else id = msg.id;
+        } else id = req.body.id;
         const PromUser = userStorage.getUserById(id);
         PromUser
             .then(user=>{
@@ -62,8 +62,8 @@ module.exports={
                 callback(err);
             });
     },
-    'usernameExists': (msg, callback) => {
-        const login = msg.login;
+    'usernameExists': (req.body, callback) => {
+        const login = req.body.login;
         const PromUser = userStorage.getUsers({login: login});
         PromUser
             .then(users=>{
@@ -77,11 +77,11 @@ module.exports={
                 callback(err);
             });
     },
-    'addUser': (msg, callback)=>{
+    'addUser': (req.body, callback)=>{
         let user1;
-        const login = msg.login;
-        const password = msg.password;
-        const fullname = msg.fullname;
+        const login = req.body.login;
+        const password = req.body.password;
+        const fullname = req.body.fullname;
         let user= {
             'login': login,
             'password': password,

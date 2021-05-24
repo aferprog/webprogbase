@@ -1,0 +1,11 @@
+FROM node:14
+WORKDIR /usr/app
+COPY package*.json ./package.json
+RUN npm install
+RUN npm i express
+RUN npm i mongoose
+RUN npm i dotenv
+RUN npm i jsonwebtoken
+COPY ./auth .
+EXPOSE 8080
+CMD ["node" , "app.js"]
